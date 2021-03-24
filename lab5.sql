@@ -1,0 +1,10 @@
+1.SELECT C.customer_name, L.loan_number FROM customer C join borrower B ON C.customer_id = B.customer_id join loan L ON L.loan_number = B.loan_number WHERE branch_name = 'Downtown';
+2.SELECT branch_name FROM branch WHERE assets > ANY (SELECT assets FROM branch WHERE branch_city='Horseneck');
+3. SELECT A.branch_name, COUNT(*) FROM depositor D, account A WHERE D.account_number=A.account_number GROUP BY branch_name;
+4. SELECT C1.Customer_name AS Customer1  , C2.Customer_name AS Customer2, C1.customer_city AS City FROM customer C1 , Customer C2 WHERE C1.Customer_city=C2.Customer_city AND C1.customer_id <>C2.customer_id;
+5. SELECT branch_name, ((balance/100)*4) AS Total_Interest FROM account;
+6. SELECT account_number, MAX(balance) AS balance, branch_city FROM account A, branch B WHERE A.branch_name=B.branch_name GROUP BY branch_city;
+7. SELECT branch_name FROM branch B WHERE assets < ANY (SELECT assets FROM branch B WHERE branch_city='Brooklyn');
+8. SELECT L.loan_number, L.amount as loan_amount, C.customer_name FROM customer C JOIN borrower B ON C.customer_id=B.customer_id JOIN loan l on L.loan_number =B.loan_number JOIN account A on A.branch_name=L.branch_name ORDER BY (L.amount) DESC LIMIT 5;
+9. SELECT DISTINCT C.customer_name FROM customer C JOIN depositor D on C.customer_id=D.customer_id JOIN account A ON D.account_number=A.account_number JOIN branch B on A.branch_name= B.branch_name WHERE C.customer_name IN (SELECT customer_name from customer C1 JOIN borrower BR ON C1.customer_id= BR.customer_id) AND B.branch_name='Perryridge';
+10. SELECT borrower.customer_id, sum(amount) FROM borrower, loan WHERE borrower.loan_number = loan.loan_number GROUP BY borrower.customer_id HAVING COUNT(*) >= 2;
